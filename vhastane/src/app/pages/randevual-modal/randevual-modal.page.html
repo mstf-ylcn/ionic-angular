@@ -1,0 +1,252 @@
+<ion-header>
+  <ion-toolbar>
+  <ion-icon *ngIf="!randevu_sayfasi" (click)="geri()"  style="font-size: 30px;float: left;margin-left: 1px; opacity: 0.5;" name="chevron-back-outline" ></ion-icon>
+
+    <ion-title style="text-align: center;margin-right: 40px;margin-top: 5px;" >Randevu Al</ion-title>
+    <ion-icon style=" font-size: 32px;opacity: 0.5;
+ margin-top: -28px; float: right;margin-right: 5px;"
+    (click)="modal_kapat()" name="close-outline"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<!-- 
+  <img class="icon" style="width: 25px; " src="../../../assets/il.png"  alt="">
+  <img class="icon" style="width: 25px; " src="../../../assets/il2.png"  alt="">
+  <img class="icon" style="width: 25px; " src="../../../assets/il3.png"  alt="">
+  <img class="icon" style="width: 25px; " src="../../../assets/il4.png"  alt=""> -->
+
+
+  <!-- Randevu secim  -->
+  <div *ngIf="randevu_sayfasi">
+
+
+  <ion-list>
+
+<!-- 
+    <div >
+      <ion-label  class="label">Uşak Eğitim ve Araştırma Hastanesi</ion-label>
+      <br>
+      <img  class="icon" src="../../../assets/dr.png"  alt="">
+      <ion-label  class="label">Dr. Deneme Deneme</ion-label>
+      <br>
+      <img  class="icon" src="../../../assets/r.png" alt="">
+      <ion-label  class="label">Kalp ve Damar Hastalıkları</ion-label>
+    </div> -->
+
+
+    <img class="icon" style="width: 25px;  margin-left: 20px;" src="../../../assets/tt.png"  alt="">
+ 
+    <ion-label style="margin-left: 5px;margin-top: 6px; position: absolute;">Tarih</ion-label> 
+    <ion-item  (click)="takvim_ac()">
+      <ion-label place >Tarih: {{randevu_baslangic}} -- {{randevu_bitis}} </ion-label>
+    </ion-item>
+    <br>
+  
+
+
+
+    <img class="icon" style="width: 25px;margin-left: 20px; " src="../../../assets/il3.png"  alt="">
+ 
+    <ion-label style="margin-left: 5px;margin-top: 6px; position: absolute;">Şehir</ion-label> 
+    <ion-item>
+    <ion-select [value]="il"   [disabled]="il_disable"   (ionChange)="sehir_ac($event)"   [interfaceOptions]="customActionSheetOptions" style="float: left;" interface="action-sheet" cancel-text="İptal" text-wrap placeholder="Şehir Seçiniz">
+      <ion-select-option *ngFor="let item of hastane_bilgi" [value]="item.IL">{{item.IL}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <br>
+
+
+
+
+
+    <img class="icon" style="width: 25px;  margin-left: 20px;" src="../../../assets/h.png"  alt="">
+ 
+      <ion-label style="margin-left: 5px;margin-top: 6px; position: absolute;">Hastane</ion-label> 
+      <ion-item>
+      <ion-select  [disabled]="hastane_disable" (ionChange)="poliklinik_ac($event)" [interfaceOptions]="customActionSheetOptions" style="float: left;" interface="action-sheet" cancel-text="İptal" text-wrap placeholder="Hastane Seçiniz">
+        <span *ngFor="let item of hastane_bilgi" >
+        <ion-select-option   *ngIf="item.IL==il" [value]="item" >{{item.HASTANE}}</ion-select-option>
+      </span>
+      </ion-select>
+    </ion-item>
+    <br>
+
+
+    <img class="icon" style="width: 25px;  margin-left: 20px;" src="../../../assets/r.png"  alt="">
+ 
+    <ion-label style="margin-left: 5px;margin-top: 6px; position: absolute;">Poliklinik</ion-label> 
+    <ion-item>
+   
+    <ion-select [disabled]="poliklinik_disable" (ionChange)="doktor_ac($event)" [interfaceOptions]="customActionSheetOptions" style="float: left;" interface="action-sheet" cancel-text="İptal" text-wrap placeholder="Poliklinik Seçiniz">
+      <span *ngFor="let item of poli_bilgi" >
+      <ion-select-option *ngIf="item.HASTANE_KOD==hastane_kod"  [value]="item"  >{{item.POLIKLINIK}}</ion-select-option>
+    </span>
+    </ion-select>
+  </ion-item>
+  <br>
+
+
+
+  <img class="icon" style="width: 25px;  margin-left: 20px;" src="../../../assets/drk.png"  alt="">
+ 
+  <ion-label  style="margin-left: 5px;margin-top: 6px; position: absolute;">Doktor</ion-label> 
+  <ion-item>
+  <ion-select [disabled]="doktor_disable" (ionChange)="randevu_ac($event)"   [interfaceOptions]="customActionSheetOptions" style="float: left;" interface="action-sheet" cancel-text="İptal" text-wrap placeholder="Doktor Seçiniz">
+    <span>
+
+    <ion-select-option *ngFor="let doktor of doktorlar" [value]='doktor' >{{doktor.UNVAN}}   {{doktor.AD}} {{doktor.SOYAD}}</ion-select-option>
+
+  </span>
+
+    <!-- [value]="doktor " ?  veya item  -->
+  </ion-select>
+</ion-item>
+<br>
+
+
+
+
+
+
+
+
+    
+
+   
+  
+
+  
+  </ion-list>
+
+<ion-button shape="round" [disabled]="randevu_disable" (click)="randevu_ara()" expand="block" >Randevu Ara</ion-button>
+
+</div>
+
+
+
+
+<!-- *********************************Randevu tarih ve saatleri gelecek -->
+
+<div style=" display: flex;
+width: 100%;
+height: 100%;
+flex-wrap: wrap;
+align-items: center;
+justify-content: center;" *ngIf="!randevu_sayfasi" >
+
+
+
+  <!-- randevu bulunmussa -->
+  <div    *ngIf="randevu_bulundu_mu" >
+
+<span  *ngFor="let randevu_gun of randevu_gun_dizi,let i=index">
+  
+ 
+  <span *ngIf="i==indis">  
+   
+
+  <ion-toolbar style="text-align: center;--background:#48d0cc;display: inline-block;">
+    <span  slot="start" *ngIf="!i==0">
+      <ion-icon *ngIf="i==indis" (click)="geri_gel(i,randevu_gun.TARIH)" style="font-size: 32px;" name="arrow-back-outline"></ion-icon>
+    </span>
+    <ion-label style="color:white;display: block;" >{{randevu_gun.TARIH2}}</ion-label>
+ 
+  <span  slot="end" *ngIf="i+1<randevu_gun_dizi.length">
+    <ion-icon *ngIf="i==indis " (click)="ileri(i,randevu_gun.TARIH)" style="font-size: 32px;" name="arrow-forward-outline"></ion-icon>
+  </span>
+
+  </ion-toolbar>
+
+
+  <br>
+
+
+  <!-- randevu_gun+'  '+randevu_saat -->
+  <!-- randevu_saaat.dolu hem tarih hem de saati alıyor -->
+  <!-- randevu_saat randevu saatini , randevu_gun sadece gunu alıyor  -->
+  <!-- ngclass randevu secim,randevunun dolu 
+  olma durumları icin kullanılıyor. -->
+  <!--   margin-left: 5px;margin-right: 5px;-->
+  <div style="text-align: center; display: block;">
+<span>  
+  <ion-button class="buton2" style="width: 23%;" 
+  [ngClass]="{'randevu_sec_class': randevu_sec === randevu_gun.TARIH+' '+randevu_saat.saat,
+    'randevu_dolu_class' : randevu_saat.dolu === randevu_gun.TARIH+' '+randevu_saat.saat}" 
+    (click)="randevu_sec_fonk(randevu_gun.TARIH+' '+randevu_saat.saat,randevu_gun.TARIH,randevu_saat.saat,doktor)" 
+     [disabled]="randevu_saat.dolu == randevu_gun.TARIH+' '+randevu_saat.saat" *ngFor="let randevu_saat of randevu_saat_dizi">
+
+    {{randevu_saat.saat}}
+    
+     </ion-button>
+   
+    </span>
+  </div>
+    <br>
+</span>
+
+
+<!-- 2 -->
+<!-- <span *ngIf="i==indis  && indis== 1">
+2
+<ion-icon slot="end"  (click)="geri_gel(i)" style="font-size: 32px;" name="arrow-forward-outline"></ion-icon>
+
+<ion-icon slot="end"  (click)="ileri(i)" style="font-size: 32px;" name="arrow-forward-outline"></ion-icon>
+
+</span> -->
+
+<!-- 3 -->
+<!-- <span *ngIf="i==indis  && indis== 2">
+  3
+  <ion-icon slot="end"  (click)="geri_gel(i)" style="font-size: 32px;" name="arrow-forward-outline"></ion-icon>
+
+  <ion-icon slot="end"  (click)="ileri(i)" style="font-size: 32px;" name="arrow-forward-outline"></ion-icon>
+</span> -->
+
+
+<!-- 4 -->
+<!-- <span *ngIf="i==indis  && indis== 3">
+  4
+  <ion-icon slot="end"  (click)="geri_gel(i)" style="font-size: 32px;" name="arrow-forward-outline"></ion-icon>
+
+  <ion-icon *ngIf="ads.length"  slot="end"  (click)="ileri(i)" style="font-size: 32px;" name="arrow-forward-outline"></ion-icon>
+
+
+</span> -->
+
+
+
+
+
+
+
+
+</span> 
+
+
+
+
+
+
+
+
+
+
+
+</div>
+ 
+
+
+<!-- Aranan kriterlerde randevu yoksa -->
+<div *ngIf="!randevu_bulundu_mu">
+   
+  <img src="../../../assets/bulunamadı.png" style="width: 70%; margin: 25% auto 0 auto; display: block; filter: grayscale(80%);" alt="">
+  <ion-label style="font-size: 22px; text-align: center; display: block;margin-top: 15px;"  >Aradığınız kriterlere uygun randevu bulunamadı!</ion-label>
+
+
+
+</div>
+
+
+</div>
+</ion-content>

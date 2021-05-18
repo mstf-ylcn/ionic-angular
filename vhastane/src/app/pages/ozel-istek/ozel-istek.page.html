@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title style="text-align: center;color: darkcyan;" >İstek ve Şikayet</ion-title>
+    <ion-icon style=" font-size: 32px;opacity: 0.5;
+    margin-top: -28px; float: right;margin-right: 5px;"
+       (click)="modal_kapat()" name="close-outline"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-item  lines="full">
+      <ion-label  position="floating">E-Posta</ion-label>
+      <ion-input ></ion-input>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-item lines="full">
+      <ion-label  position="floating">Ad Soyad</ion-label>
+      <ion-input ></ion-input>
+    </ion-item>
+  </ion-card>
+
+  <ion-card style="height: 20%;">
+    <ion-item>
+      <ion-label  position="floating">İstek veya Şikayetiniz</ion-label>
+      <ion-textarea></ion-textarea>
+    </ion-item>
+  </ion-card>
+
+  <ion-button  expand="block" (click)="gonder()" >Gönder</ion-button>
+
+</ion-content>

@@ -1,0 +1,103 @@
+
+
+<ion-content>
+
+  <ion-header>
+
+    <ion-toolbar>
+      <ion-title style="text-align: center;">Hesabım</ion-title>
+      
+    </ion-toolbar>
+  </ion-header>
+
+
+
+
+  <ion-refresher slot="fixed" (ionRefresh)="yenile($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Sayfayı yenilemek için çekin!"
+      refreshingSpinner="crescent"
+      refreshingText="Sayfa yenileniyor...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+
+  
+<br>
+<span *ngFor="let item of uye_bilgileri">
+
+
+  <ion-card>
+    <ion-card-content  >
+        <ion-label  style="text-align: center;display: block;color:darkcyan;" >{{item.AD}} {{item.SOYAD}} </ion-label>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-content>
+        <ion-label style="text-align: center;display: block;color:darkcyan;" >{{item.DOGUM_TARIHI}}</ion-label>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-content>
+        <ion-label style="text-align: center;display: block;color:darkcyan;" *ngIf="item.CINSIYET=='E'" >Erkek</ion-label>
+        <ion-label style="text-align: center;display: block;color:darkcyan;" *ngIf="item.CINSIYET=='K'" >Kadın</ion-label>
+
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-content>
+        <ion-label style="text-align: center;display: block;color:darkcyan;" >{{item.E_POSTA}}</ion-label>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-content>
+        <ion-label style="text-align: center;display: block;color:darkcyan;" >{{item.TELEFON}}</ion-label>
+    </ion-card-content>
+  </ion-card>
+</span>
+  <br>
+
+  <ion-button style="text-transform: capitalize" expand="block" style="  --background:darkcyan;
+  color:white;" (click)="duzenle()" >Bilgilerini düzenle</ion-button>
+
+
+  <br>
+  <br>
+  <ion-item>
+  <ion-label>Koyu Mod</ion-label>
+  <ion-toggle color="dark" (ionChange)="darkmode($event)" ></ion-toggle>
+  <ion-icon style=" color:rgb(240, 111, 6);opacity: 1; " *ngIf="renk" name="sunny"></ion-icon>
+  <ion-icon style=" color:black;opacity: 1; " *ngIf="!renk" name="moon"></ion-icon>
+</ion-item>
+<br>
+<br>
+
+
+<ion-item (click)="ozel_istek()">
+  <ion-icon style="font-size: 32px; opacity:0.5;" name="mail-outline"></ion-icon>
+  <ion-label style="font-size: 20px; margin-left: 5px;">İstek ve Şikayet Formu</ion-label>
+</ion-item>
+
+<br>
+  <ion-item (click)="hakkimizda()" >
+    <!-- <img src="../../../assets/hesap_info.png" style="width:26px; opacity:0.5;" alt=""> -->
+    <ion-icon style="font-size: 32px; opacity:0.5;" name="information-circle-outline"></ion-icon>
+    <ion-label style="font-size: 20px; margin-left: 5px;">Hakkımızda</ion-label>
+  </ion-item>
+  <br>
+  <ion-item style="margin-top: bottom;" (click)="cikis_alert()" >
+<ion-icon style="font-size: 32px;" name="log-out-outline"></ion-icon>
+<ion-label style="font-size: 20px;margin-left: 5px;" >Çıkış Yap</ion-label>
+</ion-item>
+
+
+</ion-content>

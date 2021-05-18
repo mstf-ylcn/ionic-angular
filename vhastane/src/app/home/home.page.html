@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+ 
+</ion-header>
+
+<ion-content [fullscreen]="true"  >
+<div class="konum">
+
+  <!-- Sonradan bakalım -->
+<!-- <label style="font-size: 35px;color: darkcyan;" >Kocaeli Üniversitesi Hastanesi</label>  -->
+
+<ion-grid >
+
+
+<ion-row >
+  <ion-col>
+    <img src="./../../assets/11.png" width="255px" height="324px" alt="">
+  </ion-col>
+
+</ion-row>
+</ion-grid>
+
+
+<div  class="login_sign">
+
+ 
+
+
+
+  <ion-grid>
+    <ion-row>
+      <ion-col align-self-center>
+        
+        <ion-button  expand="block" class="buton"  shape="round" color="danger" (click)="login()">Giriş</ion-button>
+
+        <span class="divider line one-line">veya</span>
+
+        <span class="already">Hesabın yok mu ?</span>
+        <ion-button  expand="block" class="buton" shape="round"  (click)="sign_up()" color="primary">Kayıt Ol</ion-button>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+
+<!-- <ion-item>
+  <ion-label>Doğum Tarihi</ion-label>
+
+  <ion-datetime value="1921-01-01"  min="1921-02" [(ngModel)]="date" (ionChange)="cevir()"
+    displayFormat="DD/MMM/YYYY"
+    doneText="Tamam"
+    cancelText="İptal"
+  
+    monthShortNames="Oca, Şub, Mar, Nis, May, Haz, Tem, Ağu, Eyl, Eki, Kas, Ara">
+  </ion-datetime>
+  <ion-label>yeni: {{date}}</ion-label>
+
+</ion-item> -->
+
+
+<!-- <ion-button style="margin-top: 50px;" shape="round" routerLink="../tabs/tabev"  color="primary">git</ion-button> -->
+</div>
+
+
+<!-- <div style="text-align: center; display: block;"> -->
+  <!-- <ion-icon name="chatbubble-ellipses-outline" style="font-size: 64px; float: right; margin-right: 20px;color:#4c8dff;"></ion-icon> -->
+  <!-- <img src="../../assets/istek.png" style="margin-top: 50px;text-align: center;" width="125px" alt=""> -->
+<!-- </div> -->
+
+
+</ion-content>

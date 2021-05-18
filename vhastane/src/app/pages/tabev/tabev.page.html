@@ -1,0 +1,185 @@
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="yenile($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Sayfayı yenilemek için çekin!"
+      refreshingSpinner="crescent"
+      refreshingText="Sayfa yenileniyor...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!-- sonradan bak  -->
+<!-- Randevu al butonuna basıldıgında inaktif olacak -->
+<!-- *ngIf="randevu" -->
+
+ 
+
+<div >
+
+  <!-- isim soy isim gelecek -->
+  <ion-title style="margin-top:30px;font-size: 18px; margin-bottom: 20px;">
+    <ion-label *ngFor="let item of bilgi"  style="color:darkcyan; font-size: 20px;" >
+      Merhaba, {{item.AD}} {{item.SOYAD}} 
+    </ion-label> 
+  </ion-title>
+  <!-- <img  style="float: right;position: relative; margin-top: -25px; margin-right: 15px;" src="../../../assets/3.png" height="35px" width="35px" > -->
+
+
+  <!-- <ion-button style="position: absolute; margin: 30px;"  class="buton" shape="round" routerLink="../home"  color="primary">Giriş don</ion-button> -->
+
+      
+  <div>
+   <!-- (click)="randevual()" -->
+    <!-- randevu al butonu -->
+    <div (click)="randevual_modal()"  >
+
+      <ion-card   style=" border-radius: 10px;" >
+        <ion-card-content style="display: flex;align-items: center;  justify-content: center;">
+          <img  src="../../../assets/dr.png" alt="">
+
+        </ion-card-content>
+        
+   <span style="display: block; text-align: center;">
+    <ion-label style="font-size: 25px;" >Randevu Al</ion-label>
+     </span>
+
+      </ion-card>
+
+    </div>
+
+ <!-- covid bilgilendirme butonu -->
+    <div (click)="covid_modal()"  >  
+      <ion-card style="border-radius: 10px;margin-top: 20px;" >
+
+        <ion-card-content style=" display: flex; align-items: center; justify-content: center;">
+          <img  src="../../../assets/mask.png" alt="">
+
+        </ion-card-content>
+        
+   <span style="display: block; text-align: center;">
+    <ion-label style="font-size: 25px;" >Covid-19 Bilgilendirme</ion-label>
+     </span>
+
+      </ion-card>
+    </div>
+
+  
+
+ <!-- Randevu icerik -->
+    <div>    
+      
+      <ion-card style=" margin-top: 20px; border-radius: 10px;" >
+       
+        <ion-card-content  style=" display: flex; align-items: center; justify-content: center;">
+
+
+                             <!-- Randevu icerik gelecek -->
+
+
+
+
+
+
+          <!-- veri tabanından gelen bilgiler dizi halinde ngfor ile donecek 
+          eger veri gelmezse ngif ile varsayılan resim gosterilecek -->
+          <ion-slides *ngIf="yaklasan_randevu" pager="true">
+            <ion-slide *ngFor="let randevu of yaklasanrandevu ">
+
+              <div style="margin-top: -2px;"  class="card">
+                <div style="display: block;text-align: center;" >
+
+                    <ion-label style="margin-right: 10px;"  >{{randevu.TARIH}}</ion-label>
+                    <ion-icon  style="font-size: 23px; vertical-align: middle;margin-bottom: 8px;" name="time-outline">
+                    </ion-icon>
+                    <ion-label style="margin-left: 10px;">{{randevu.SAAT}}</ion-label>
+                </div>
+                 
+ 
+                <div  class="son" >
+
+                  <img class="icon" src="../../../assets/h.png" alt="">
+                  <ion-label style="font-size: medium;" >{{randevu.HASTANE}}</ion-label>
+                  <br>
+                  <img  class="icon" src="../../../assets/dr.png" alt="">
+                  <ion-label>{{randevu.UNVAN}} {{randevu.DOKTOR}}	</ion-label>
+                  <br>
+                  <img  class="icon" src="../../../assets/r.png" alt="">
+                  <ion-label>{{randevu.POLIKLINIK}}</ion-label>
+                </div>
+          
+                  
+                </div>
+     
+        
+            </ion-slide>
+
+          </ion-slides>
+         
+  <!-- Yaklasan randevu yoksa resim -->
+
+          <img *ngIf="!yaklasan_randevu"  style="filter: grayscale(100%);" src="../../../assets/medical2.png" alt="">
+          
+        </ion-card-content>
+
+  <!-- Yaklasan randevu yoksa yazı -->
+        <span *ngIf="!yaklasan_randevu" style="display: block; text-align: center;">
+          <ion-label style="font-size: 25px;  " >Yaklaşan Randevu yok !</ion-label>
+           </span>
+  
+
+      </ion-card>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- Randevu al ekranı -->
+
+<!-- <div *ngIf="!randevu">
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>
+        Multiple Selection
+      </ion-label>
+    </ion-list-header>
+  
+    <ion-item>
+      <ion-label>Toppings</ion-label>
+      <ion-select multiple="true" cancelText="Nah" okText="Okay!">
+        <ion-select-option value="bacon">Bacon</ion-select-option>
+        <ion-select-option value="olives">Black Olives</ion-select-option>
+        <ion-select-option value="xcheese">Extra Cheese</ion-select-option>
+        <ion-select-option value="peppers">Green Peppers</ion-select-option>
+        <ion-select-option value="mushrooms">Mushrooms</ion-select-option>
+        <ion-select-option value="onions">Onions</ion-select-option>
+        <ion-select-option value="pepperoni">Pepperoni</ion-select-option>
+        <ion-select-option value="pineapple">Pineapple</ion-select-option>
+        <ion-select-option value="sausage">Sausage</ion-select-option>
+        <ion-select-option value="Spinach">Spinach</ion-select-option>
+      </ion-select>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Pets</ion-label>
+      <ion-select multiple="true" [value]="['bird', 'dog']">
+        <ion-select-option value="bird">Bird</ion-select-option>
+        <ion-select-option value="cat">Cat</ion-select-option>
+        <ion-select-option value="dog">Dog</ion-select-option>
+        <ion-select-option value="honeybadger">Honey Badger</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+
+  <ion-button style="position: absolute; margin: 30px;"  class="buton" shape="round" 
+  (click)="randevual()"
+  color="primary">Giriş don</ion-button> 
+  
+</div> -->
+
+
+</ion-content>
